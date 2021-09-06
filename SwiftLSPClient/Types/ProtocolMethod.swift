@@ -50,5 +50,7 @@ public struct ProtocolMethod {
 
     public struct Workspace {
         public static let WorkspaceFolders = "workspace/workspaceFolders"
+        public static let ApplyEdit = "workspace/applyEdit"
+        public static let ExecuteCommand = "workspace/executeCommand"
     }
 }

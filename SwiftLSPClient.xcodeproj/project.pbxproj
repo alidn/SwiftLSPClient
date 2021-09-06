@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		526D49F426E696E000B1FAC4 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526D49F326E696E000B1FAC4 /* Command.swift */; };
 		52E778EA26D5AE16004D7065 /* Rename.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E778E926D5AE16004D7065 /* Rename.swift */; };
 		C90F9BB421773CB800EC3854 /* LanguageServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90F9BB321773CB800EC3854 /* LanguageServer.swift */; };
 		C91160E5221106FF00B4F3AB /* WillSaveTextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91160E4221106FF00B4F3AB /* WillSaveTextDocument.swift */; };
@@ -68,6 +69,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		526D49F326E696E000B1FAC4 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		52E778E926D5AE16004D7065 /* Rename.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rename.swift; sourceTree = "<group>"; };
 		BBEF4C862364516900109F9A /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		BBEF4C872364516900109F9A /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				C9C30E9C2421AD72003BE31A /* WorkspaceEdit.swift */,
+				526D49F326E696E000B1FAC4 /* Command.swift */,
 			);
 			path = Workspace;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				C99DBF4321FE3D42005AC5C5 /* Diagnostics.swift in Sources */,
 				C945420A2226138B000CEFB2 /* Formatting.swift in Sources */,
 				C923317D231DF4AA000207E7 /* ShowMessageParams.swift in Sources */,
+				526D49F426E696E000B1FAC4 /* Command.swift in Sources */,
 				C9C30E9D2421AD72003BE31A /* WorkspaceEdit.swift in Sources */,
 				C99299B321755D8A00C5F8A5 /* ProtocolMethod.swift in Sources */,
 				C99299A321755D6900C5F8A5 /* StdioDataTransport.swift in Sources */,

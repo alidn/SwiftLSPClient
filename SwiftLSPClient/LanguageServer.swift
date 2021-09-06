@@ -77,6 +77,8 @@ public protocol LanguageServer: AnyObject {
     func onTypeFormatting(params: DocumentOnTypeFormattingParams, block: @escaping (LanguageServerResult<FormattingResult>) -> Void)
     func references(params: ReferenceParams, block: @escaping (LanguageServerResult<ReferenceResponse?>) -> Void)
     func foldingRange(params: FoldingRangeParams, block: @escaping (LanguageServerResult<FoldingRangeResponse>) -> Void)
+    
+    func executeCommand(command: Command, block: @escaping (LanguageServerResult<ExecuteCommandResponse>) -> Void)
 }
 
 public protocol NotificationResponder: AnyObject {
@@ -84,6 +86,8 @@ public protocol NotificationResponder: AnyObject {
     func languageServer(_ server: LanguageServer, showMessage message: ShowMessageParams)
     func languageServer(_ server: LanguageServer, showMessageRequest messageRequest: ShowMessageRequestParams)
     func languageServer(_ server: LanguageServer, publishDiagnostics diagnosticsParams: PublishDiagnosticsParams)
+    func languageServer(_ server: LanguageServer, applyEdit edit: WorkspaceEdit)
 
     func languageServer(_ server: LanguageServer, failedToDecodeNotification notificationName: String, with error: Error)
+    func languageServer(_ server: LanguageServer, failedToDecodeRequest request: String, with error: Error)
 }

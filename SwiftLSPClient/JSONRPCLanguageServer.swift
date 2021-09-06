@@ -77,13 +77,51 @@ extension JSONRPCLanguageServer {
             decodeNotification(named: method, data: data) { (value: PublishDiagnosticsParams) in
                 responder.languageServer(self, publishDiagnostics: value)
             }
+        case ProtocolMethod.Workspace.ApplyEdit:
+            decodeNotification(named: method, data: data) { (value: WorkspaceEdit) in
+                responder.languageServer(self, applyEdit: value)
+            }
         default:
             break
         }
     }
+    
+    private func decodeRequest<T: Codable>(named name: String, data: Data, onSuccess: (T) -> Void) {
+        let responder = notificationResponder
+        
+        do {
+            let resultType = JSONRPCRequest<T>.self
+            let result = try JSONDecoder().decode(resultType, from: data)
+            
+            guard let params = result.params else {
+                responder?.languageServer(self, failedToDecodeRequest: name, with: LanguageServerError.missingExpectedResult)
+                
+                return
+            }
+            
+            return onSuccess(params)
+        } catch {
+            let newError = LanguageServerError.unableToDecodeResponse(error)
+            
+            responder?.languageServer(self, failedToDecodeRequest: name, with: newError)
+        }
+    }
 
     private func handleRequest(_ request: AnyJSONRPCRequest, data: Data, completionHandler: @escaping (AnyJSONRPCResponse) -> Void) {
-
+        guard let responder = notificationResponder else {
+            return
+        }
+        
+        let method = request.method
+        
+        switch method {
+        case ProtocolMethod.Workspace.ApplyEdit:
+            decodeRequest(named: method, data: data) { (value: WorkspaceEdit) in
+                responder.languageServer(self, applyEdit: value)
+            }
+        default:
+            break
+        }
     }
 }
 
@@ -310,6 +348,15 @@ extension JSONRPCLanguageServer: LanguageServer {
         let method = ProtocolMethod.TextDocument.FoldingRange
 
         protocolTransport.sendRequest(params, method: method) { (result: ProtocolResponse<FoldingRangeResponse>) in
+            relayResult(result: result, block: block)
+        }
+    }
+    
+    public func executeCommand(command: Command, block: @escaping (LanguageServerResult<ExecuteCommandResponse>) -> Void) {
+        let method = ProtocolMethod.Workspace.ExecuteCommand
+        let params = ExecuteCommandParams(command: command)
+        
+        protocolTransport.sendRequest(params, method: method) { (result: ProtocolResponse<ExecuteCommandResponse>) in
             relayResult(result: result, block: block)
         }
     }
